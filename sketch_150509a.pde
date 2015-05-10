@@ -123,7 +123,7 @@ class Explosion{
 //    print(l.get());
     velocity = new PVector(random(-10,10),random(-10,10));
     gravity = new PVector (0.13,0.02);
-    lifespan = 1.2;
+    lifespan = 15.0;
 //    maxspeed = 8;
 //    acceleration = new PVector(0,0.1);
 //    point (location.x + random(q,q), location.x + random(q,q)); 
@@ -143,12 +143,10 @@ class Explosion{
   }
   
   void display(){
-//    print(lifespan);
     noSmooth();
     stroke(255, lifespan);
     fill(255, lifespan);
-    point(location.x, location.y);
-//    ellipse(location.x, location.y, 8, 8);
+    ellipse(location.x, location.y, 8, 8);
   }
   
   boolean isDead(){
