@@ -85,7 +85,7 @@ class ExplotionHandler{
   }
   
   void addExplotion(Explotion e){
-    explotions.add(p);
+    explotions.add(e);
   }
   
   boolean dead(){
@@ -94,7 +94,7 @@ class ExplotionHandler{
   
 }
 
-class SecondExplotion extends ExplotionHandler {
+class SecondExplotion extends Explotion {
   float seta;
   
   SecondExplotion(PVector l){
@@ -133,7 +133,7 @@ class Explotion{
     velocity = new PVector(random(-10,10),random(-10,10));
     gravity = new PVector (0.13,0.02);
     lifespan = 1.2;
-    maxspeed = 8;
+//    maxspeed = 8;
 //    acceleration = new PVector(0,0.1);
 //    point (xMouseClick + random(q,q), yMouseClick + random(q,q)); 
   }
@@ -145,7 +145,7 @@ class Explotion{
   
   void update(){
     velocity.add(acceleration);
-    velocity.limit(maxspeed);
+    velocity.limit(8);
     location.add(velocity);
     lifespan -= 1.0;
     
