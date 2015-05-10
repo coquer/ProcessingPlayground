@@ -6,8 +6,6 @@ int opa = 255; //Opacity - skal gå ned til 0 lidt efter lidt
 
 ArrayList<ExplosionHandler> systems;
 
-//Explosion [] bang = new Explosion[100]; // An array
-
 boolean startAnimation = false;
 float xMouseClick = 0;
 float yMouseClick = 0;
@@ -16,10 +14,7 @@ int animationCount = 0;
 void setup () { 
   size (600,600);
   smooth();
-
   ruin = loadImage ("ruins1.jpg");  //any image will do....  
-  //initialize array
-  //lets init an empty array list for the Explosion handler class
   systems = new ArrayList<ExplosionHandler>();
 }
 
@@ -120,13 +115,9 @@ class Explosion{
   Explosion(PVector l ){
     acceleration = new PVector(0, 0.05);
     location = l.get();
-//    print(l.get());
     velocity = new PVector(random(-5,5),random(-5,5));
     gravity = new PVector (0.13,0.02);
     lifespan = 50.0;
-//    maxspeed = 8;
-//    acceleration = new PVector(0,0.1);
-//    point (location.x + random(q,q), location.x + random(q,q)); 
   }
   
   void run(){
@@ -139,7 +130,6 @@ class Explosion{
     velocity.add(acceleration);
     location.add(velocity);
     velocity.add (gravity);
-//    velocity.limit(8);
     lifespan -= 1.0;
     
   }
@@ -151,7 +141,6 @@ class Explosion{
     fill(221, 197, 186, lifespan);
     strokeWeight(3); // Size of point() 
     point (location.x,location.y); //Particles
-//    clip(location.x, location.y, 2, 2);
   }
   
   boolean isDead(){
@@ -159,16 +148,13 @@ class Explosion{
   }
   
   void checkEdges() {
-    
      // Bounce off walls
      if (location.x > width || location.x < 0) {
        velocity.x = velocity.x * -1;
-       
      } 
-    if (location.y > height || location.y < 0) {
+     
+     if (location.y > height || location.y < 0) {
       velocity.y = velocity.y * -1;
-      
     }
-    
    }
 }
