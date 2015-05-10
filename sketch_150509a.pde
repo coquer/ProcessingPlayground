@@ -42,16 +42,6 @@ void mousePressed(){
   systems.add(new ExplotionHandler(1, new PVector(mouseX, mouseY)));
 }
 
-//void mouseReleased(){
-//  animationCount = animationCount + 1;
-//  startAnimation = false;
-//}
-//
-//void mouseClicked(){
-//  xMouseClick = mouseX;
-//  yMouseClick = mouseY;
-//}
-
 class ExplotionHandler{
   ArrayList<Explotion> explotions;
   PVector origin;
@@ -78,8 +68,10 @@ class ExplotionHandler{
     Explotion e;
     if(int(random(0, 2)) == 0 ){
       e = new Explotion(origin);
+      print("Explotion");
     }else{
       e = new SecondExplotion(origin);
+      print("Second Explotion");
     }
     explotions.add(e);
   }
