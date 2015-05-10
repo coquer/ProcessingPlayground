@@ -4,7 +4,7 @@ float q = random(-45,45); //Værdier til place of point()
 float h = random(-10,10); // Random angles
 int opa = 255; //Opacity - skal gå ned til 0 lidt efter lidt
 
-ArrayList<ExplotionHandler> systems;
+ArrayList<ExplosionHandler> systems;
 
 //Explosion [] bang = new Explosion[100]; // An array
 
@@ -19,75 +19,75 @@ void setup () {
 
   ruin = loadImage ("ruins1.jpg");  //any image will do....  
   //initialize array
-  //lets init an empty array list for the explotion handler class
-  systems = new ArrayList<ExplotionHandler>();
+  //lets init an empty array list for the Explosion handler class
+  systems = new ArrayList<ExplosionHandler>();
 }
 
 void draw() {
   background(ruin);
   noStroke();
-  for(ExplotionHandler eh: systems){
+  for(ExplosionHandler eh: systems){
     eh.run();
-    eh.addExplotion();
+    eh.addExplosion();
   }
 
   if(systems.isEmpty()){
     fill(255);
     textAlign(CENTER);
-    text("Attack", width/2, height/2);
+    text("Attack ?", width/2, height/2);
   }  
 }
 
 void mousePressed(){
-  systems.add(new ExplotionHandler(1, new PVector(mouseX, mouseY)));
+  systems.add(new ExplosionHandler(1, new PVector(mouseX, mouseY)));
 }
 
-class ExplotionHandler{
-  ArrayList<Explotion> explotions;
+class ExplosionHandler{
+  ArrayList<Explosion> Explosions;
   PVector origin;
   
-  ExplotionHandler(int num, PVector v){
-    explotions = new ArrayList<Explotion>();
+  ExplosionHandler(int num, PVector v){
+    Explosions = new ArrayList<Explosion>();
     origin = v.get();
     for(int y = 0; y < num; y++){
-      explotions.add(new Explotion(origin));
+      Explosions.add(new Explosion(origin));
     }
   }
   
   void run(){
-    for(int x = explotions.size() - 1; x >= 0; x--){
-      Explotion e = explotions.get(x);
+    for(int x = Explosions.size() - 1; x >= 0; x--){
+      Explosion e = Explosions.get(x);
       e.run();
       if(e.isDead()){
-        explotions.remove(x);
+        Explosions.remove(x);
       }
     }
   }
   
-  void addExplotion(){
-    Explotion e;
+  void addExplosion(){
+    Explosion e;
     if(int(random(0, 2)) == 0 ){
-      e = new Explotion(origin);
+      e = new Explosion(origin);
     }else{
-      e = new SecondExplotion(origin);
+      e = new SecondExplosion(origin);
     }
-    explotions.add(e);
+    Explosions.add(e);
   }
   
-  void addExplotion(Explotion e){
-    explotions.add(e);
+  void addExplosion(Explosion e){
+    Explosions.add(e);
   }
   
   boolean dead(){
-    return explotions.isEmpty();
+    return Explosions.isEmpty();
   }
   
 }
 
-class SecondExplotion extends Explotion {
+class SecondExplosion extends Explosion {
   float seta;
   
-  SecondExplotion(PVector l){
+  SecondExplosion(PVector l){
     super(l);
     seta = 0.0;
   }
@@ -109,7 +109,7 @@ class SecondExplotion extends Explotion {
   
 }
 
-class Explotion{
+class Explosion{
   
   PVector gravity;
   PVector location;
@@ -117,15 +117,16 @@ class Explotion{
   PVector acceleration;
   float lifespan;
   
-  Explotion(PVector l ){
+  Explosion(PVector l ){
     acceleration = new PVector(0, 0.05);
     location = l.get();
+//    print(l.get());
     velocity = new PVector(random(-10,10),random(-10,10));
     gravity = new PVector (0.13,0.02);
     lifespan = 1.2;
 //    maxspeed = 8;
 //    acceleration = new PVector(0,0.1);
-    point (location.x + random(q,q), location.x + random(q,q)); 
+//    point (location.x + random(q,q), location.x + random(q,q)); 
   }
   
   void run(){
@@ -142,9 +143,12 @@ class Explotion{
   }
   
   void display(){
+//    print(lifespan);
+    noSmooth();
     stroke(255, lifespan);
     fill(255, lifespan);
-    ellipse(location.x, location.y, 8, 8);
+    point(location.x, location.y);
+//    ellipse(location.x, location.y, 8, 8);
   }
   
   boolean isDead(){
