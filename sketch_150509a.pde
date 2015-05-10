@@ -68,10 +68,8 @@ class ExplotionHandler{
     Explotion e;
     if(int(random(0, 2)) == 0 ){
       e = new Explotion(origin);
-      print("Explotion");
     }else{
       e = new SecondExplotion(origin);
-      print("Second Explotion");
     }
     explotions.add(e);
   }
@@ -127,7 +125,7 @@ class Explotion{
     lifespan = 1.2;
 //    maxspeed = 8;
 //    acceleration = new PVector(0,0.1);
-//    point (xMouseClick + random(q,q), yMouseClick + random(q,q)); 
+    point (location.x + random(q,q), location.x + random(q,q)); 
   }
   
   void run(){
