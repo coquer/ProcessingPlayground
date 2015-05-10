@@ -98,13 +98,13 @@ class SecondExplosion extends Explosion {
   }
   
   void display(){
-    super.display();
-    pushMatrix();
+    super.display(); 
+    pushMatrix(); //saves the current coordinate system to the stack 
     translate(location.x, location.y);
     rotate(seta);
-    stroke(255, lifespan);
-    line(0, 0 , 23, 0);
-    popMatrix();
+    fill(221, 197, 186, 0);
+    line(0, 0 , 0, 0);
+    popMatrix(); //restores the prior coordinate system
   }
   
 }
@@ -121,9 +121,9 @@ class Explosion{
     acceleration = new PVector(0, 0.05);
     location = l.get();
 //    print(l.get());
-    velocity = new PVector(random(-10,10),random(-10,10));
+    velocity = new PVector(random(-5,5),random(-5,5));
     gravity = new PVector (0.13,0.02);
-    lifespan = 15.0;
+    lifespan = 50.0;
 //    maxspeed = 8;
 //    acceleration = new PVector(0,0.1);
 //    point (location.x + random(q,q), location.x + random(q,q)); 
@@ -132,25 +132,43 @@ class Explosion{
   void run(){
     update();
     display();
+    checkEdges();
   }
   
   void update(){
     velocity.add(acceleration);
-    velocity.limit(8);
     location.add(velocity);
+    velocity.add (gravity);
+//    velocity.limit(8);
     lifespan -= 1.0;
     
   }
   
   void display(){
     noSmooth();
-    stroke(255, lifespan);
-    fill(255, lifespan);
-    ellipse(location.x, location.y, 8, 8);
+    //RGB(221, 197, 186)
+    stroke(255, 175, 135, lifespan);
+    fill(221, 197, 186, lifespan);
+    strokeWeight(3); // Size of point() 
+    point (location.x,location.y); //Particles
+//    clip(location.x, location.y, 2, 2);
   }
   
   boolean isDead(){
     return (lifespan < 0.0);
   }
   
+  void checkEdges() {
+    
+     // Bounce off walls
+     if (location.x > width || location.x < 0) {
+       velocity.x = velocity.x * -1;
+       
+     } 
+    if (location.y > height || location.y < 0) {
+      velocity.y = velocity.y * -1;
+      
+    }
+    
+   }
 }
