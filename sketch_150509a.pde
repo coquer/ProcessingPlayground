@@ -1,8 +1,8 @@
 PImage ruin;
-float r = random(1,10); //Værdier til size of point()
+float r = random(5,10); //Værdier til size of point()
 float q = random(-45,45); //Værdier til place of point()
 float h = random(-10,10); // Random angles
-int opa = 255; //Opacity - skal gå ned til 0 lidt efter lidt
+
 
 ArrayList<ExplosionHandler> systems;
 
@@ -24,17 +24,19 @@ void draw() {
   for(ExplosionHandler eh: systems){
     eh.run();
     eh.addExplosion();
+    
   }
 
   if(systems.isEmpty()){
-    fill(255);
+    fill(10,255,100);
     textAlign(CENTER);
-    text("Attack ?", width/2, height/2);
+    text("Explode me ?", width/2+30, height/2-10);
   }  
 }
 
 void mousePressed(){
   systems.add(new ExplosionHandler(1, new PVector(mouseX, mouseY)));
+  r=random(1,10);
 }
 
 class ExplosionHandler{
@@ -80,11 +82,11 @@ class ExplosionHandler{
 }
 
 class SecondExplosion extends Explosion {
-  float seta;
+  
   
   SecondExplosion(PVector l){
     super(l);
-    seta = 0.0;
+    
   }
   
   void update(){
@@ -96,8 +98,7 @@ class SecondExplosion extends Explosion {
     super.display(); 
     pushMatrix(); //saves the current coordinate system to the stack 
     translate(location.x, location.y);
-    rotate(seta);
-    fill(221, 197, 186, 0);
+    fill(10, 255, 255,0);
     line(0, 0 , 0, 0);
     popMatrix(); //restores the prior coordinate system
   }
@@ -116,7 +117,7 @@ class Explosion{
     acceleration = new PVector(0, 0.05);
     location = l.get();
     velocity = new PVector(random(-5,5),random(-5,5));
-    gravity = new PVector (0.13,0.02);
+    gravity = new PVector (0.0000,0.12);
     lifespan = 50.0;
   }
   
@@ -137,9 +138,9 @@ class Explosion{
   void display(){
     noSmooth();
     //RGB(221, 197, 186)
-    stroke(255, 175, 135, lifespan);
-    fill(221, 197, 186, lifespan);
-    strokeWeight(3); // Size of point() 
+    stroke(0, 120, 235, lifespan);
+   // fill(0, 250, 250, lifespan);
+    strokeWeight(r); // Size of point() 
     point (location.x,location.y); //Particles
   }
   
