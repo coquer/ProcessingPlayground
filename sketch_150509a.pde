@@ -1,5 +1,5 @@
 PImage ruin;
-float r = random(5,10); //Værdier til size of point()
+float r = random(10,18); //Værdier til size of point()
 float q = random(-45,45); //Værdier til place of point()
 float h = random(-10,10); // Random angles
 
@@ -111,6 +111,7 @@ class Explosion{
   PVector location;
   PVector velocity;
   PVector acceleration;
+  PVector friction;
   float lifespan;
   
   Explosion(PVector l ){
@@ -119,6 +120,7 @@ class Explosion{
     velocity = new PVector(random(-5,5),random(-5,5));
     gravity = new PVector (0.0000,0.12);
     lifespan = 50.0;
+    friction = new PVector(-1,-1);
   }
   
   void run(){
@@ -149,13 +151,22 @@ class Explosion{
   }
   
   void checkEdges() {
-     // Bounce off walls
-     if (location.x > width || location.x < 0) {
-       velocity.x = velocity.x * -1;
-     } 
+     if ( location.x > width) {
+       location.x = width;
+       velocity.x *= -1;
+     }
+     else if( location.x <0) {
+       velocity.x *= -1;
+       location.x = 0;
+     }
      
-     if (location.y > height || location.y < 0) {
-      velocity.y = velocity.y * -1;
+     if ( location.y > height) {
+       velocity.y *= -1;
+       location.y = height;
+     }
+   
+   
+   
+    
     }
    }
-}
